@@ -23,7 +23,7 @@ while True:
             f.save_info()
     # 0 退出系统
     elif action_str == "0":
-        print("欢迎再次使用【学生信息管理系统】:")
+        print("欢迎再次使用【学生信息管理系统】")
         break
     else:
         print("输入错误，请重新输入:")
