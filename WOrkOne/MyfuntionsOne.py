@@ -1,7 +1,7 @@
 card_list = []  # 存放学生信息的列表
 headline = []
 
-
+#123
 def load_info():
     """从文件导入学生信息"""
     pass
