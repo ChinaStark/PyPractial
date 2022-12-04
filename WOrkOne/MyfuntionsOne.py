@@ -98,14 +98,14 @@ def show_all():
         print('当前没有任何学生记录，请使用新增功能添加学生信息')
         return
     # 打印表头
-    for name in ["学号", "姓名", "班级", "性别", "年龄", "电话", "QQ", "地址"]:
+    for name in ["学号", "姓名", "班级", "性别", "年龄", "   电话", "   QQ", "   地址"]:
         print(name, "\t", end="")
     print('')
     # 打印分隔线
     print('=' * 70)
     # 遍历学生信息列表依次输出字典信息
     for card_dict in card_list:
-        print('%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s' % (card_dict['num_str'],
+        print('%-6s\t%-6s\t%-6s\t%-3s\t%-6s\t%-11s\t%-11s\t%6s' % (card_dict['num_str'],
                                                   card_dict['name_str'],
                                                   card_dict['class_str'],
                                                   card_dict['sex_str'],
@@ -144,7 +144,7 @@ def update_student():
     find_num = input('请输入待修改学生学号：')
     for i in range(len(card_list)):
         if find_num == card_list[i]['num_str']:
-            print("学号\t 姓名\t 班级\t 性别\t 年龄\t 电话\tQQ\t 地址")
+            print("学号\t 姓名\t 班级\t 性别\t 年龄\t 电话\tQQ\t    地址")
             print('%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' % (card_list[i]['num_str'],
                                                 card_list[i]['name_str'],
                                                 card_list[i]['class_str'],
@@ -188,5 +188,6 @@ def delete_student():
     find_num = input('请输入待删除学生学号：')
     for i in range(len(card_list)):
         if find_num == card_list[i]['num_str']:
-                del card_list[i]
+            del card_list[i]
+            break
     print('删除学生信息成功！')
