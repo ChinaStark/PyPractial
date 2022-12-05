@@ -2,7 +2,7 @@
 
 from student_operation import StudentDaoImpl
 # 读写的文件名
-path = "E:\大学学习\Python\code\library-manager-system\WOrkOne\wenxuan\student-manager-system01\student.txt"
+path = "student.txt"
 studentDao = StudentDaoImpl(path)
 
 

@@ -5,7 +5,7 @@ headline = []
 
 def load_info():
     """从文件导入学生信息"""
-    fr = open("student.txt", 'r')
+    fr = open("student.txt", 'r',encoding='utf-8')
     head = fr.readline()
     headline.append(head)  # 为后面写入表头做准备
     fr.seek(0, 0)
@@ -29,7 +29,7 @@ def load_info():
 
 
 def save_info():
-    fw = open("student.txt", 'w')
+    fw = open("student.txt", 'w',encoding='utf-8')
     fw.write(" ".join(headline))  # 写入表头
     for i in range(len(card_list)):
         fw.write(card_list[i]["num_str"] + "\t")  # 写入每行有效数据
