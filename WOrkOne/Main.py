@@ -3,7 +3,7 @@ import MyfuntionsOne as f
 f.load_info()
 
 print("学生信息已导入！")
-
+###
 while True:
     f.show_menu()  # 显示菜单
     action_str = input("请选择希望执行的操作: ")
