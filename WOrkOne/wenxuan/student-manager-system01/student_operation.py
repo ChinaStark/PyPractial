@@ -105,7 +105,6 @@ class StudentDaoImpl(StudentDao):
 
 
     def load_info(self):
-        print("*" * 70)
         file = open(self.path, "r", encoding="UTF-8")
         lines = file.readlines()        # 读取整个文件
         lines.pop(0)                    # 移除第一行数据
@@ -113,7 +112,6 @@ class StudentDaoImpl(StudentDao):
             data = eachline.split("\t") # 获取每一行中的每一列数据
             student = Student(data[0], data[1], int(data[2]), data[3], int(data[4]), data[5], data[6], data[7])
             self.card_list.append(student)
-        print("学生信息导入成功")
         file.close()
 
     def save_info(self):
@@ -145,11 +143,8 @@ class StudentDaoImpl(StudentDao):
         student = Student(id, name, classed, sex, age, phone, qq, address)
         self.card_list.append(student)
         print(f"成功新增{name}学生")
-        print("*" * 70)
 
     def show_all(self):
-        print()
-        print("*" * 70)
         print("显示所有学生信息：")
         if(len(self.card_list) == 0):
             print("当前没有学生记录，请使用新增功能添加学生信息")
@@ -165,7 +160,6 @@ class StudentDaoImpl(StudentDao):
             print(f"{student.qq}\t", end='')
             print(f"{student.address}\t", end='')
             print()
-        print("*" * 70)
 
 
     def search_student(self, name):
@@ -184,7 +178,6 @@ class StudentDaoImpl(StudentDao):
                 print()
                 return
         print(f"抱歉，没有找到{name}")
-        print("*" * 70)
 
 
     def input_info(self, old_value, tip_message):
@@ -208,7 +201,6 @@ class StudentDaoImpl(StudentDao):
                 print(f"学号为{id}的学生信息修改成功")
                 return
         print(f"抱歉，不存在学号为{id}的学生")
-        print("*" * 70)
 
 
     def delete_student(self, id:str):

@@ -1,9 +1,8 @@
 # 主程序，可以调用student_data模块中的方法
 
 from student_operation import StudentDaoImpl
-# 读写的文件名
-path = "E:\大学学习\Python\code\library-manager-system\WOrkOne\wenxuan\student-manager-system01\student.txt"
-studentDao = StudentDaoImpl(path)
+database = "python"
+studentDao = StudentDaoImpl(database)
 
 
 
@@ -11,7 +10,7 @@ studentDao = StudentDaoImpl(path)
 while True:
     studentDao.show_menu()      # 显示主菜单
     action = input("请输入你的选择：")
-    if action in ["1", "2", "3", "4", "5", "6"]:
+    if action in ["1", "2", "3", "4", "5"]:
         if action == "1":
             studentDao.show_all()
         elif action == "2":
@@ -25,8 +24,6 @@ while True:
         elif action == "5":
             id = input("请输入要删除学生的学号：")
             studentDao.delete_student(id)
-        elif action == "6":
-            studentDao.save_info()
     elif action == "0":
         print("欢迎再次使用学生管理系统：")
         break
