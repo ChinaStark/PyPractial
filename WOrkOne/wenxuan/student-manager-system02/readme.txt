@@ -13,6 +13,17 @@
             qq      varchar(255)
             address varchar(255)
 
+        创建数据库表的语句：
+            create table if not exists student(
+                id varchar(255),
+                name varchar(255),
+                classed int,
+                age varchar(255),
+                phone varchar(255),
+                qq varchar(255),
+                address varchar(255)
+            );
+
     函数说明：
         show_menu()：显示菜单
         new_student()：新增学生，通过输入语句读取用户信息保存到数据库表中

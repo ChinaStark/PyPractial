@@ -117,7 +117,7 @@ class StudentDaoImpl(StudentDao):
     def save_info(self):
         print("保存学生信息：")
         file = open(self.path, "w", encoding="UTF-8")
-        file.write(self.headline)       # 先将文件头写入
+        file.write(f"{self.headline}\n")       # 先将文件头写入
         for student in self.card_list:
             file.write(f"{student.id}\t")
             file.write(f"{student.name}\t")
