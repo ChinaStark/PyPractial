@@ -1,18 +1,18 @@
+# 学生信息管理系统
 card_list = []  # 存放学生信息的列表
 headline = []
 
 
 def load_info():
     """从文件导入学生信息"""
-    fr = open("student.txt", 'r', encoding="UTF-8")
+    fr = open("student.txt", 'r')
     head = fr.readline()
     headline.append(head)  # 为后面写入表头做准备
     fr.seek(0, 0)
     lines = fr.readlines()
-    field = lines.pop(0).split('\t')  # 移除表头
+    field = lines.pop(0).split(',')  # 移除表头
     for eachline in lines:
         t = eachline.split('\t')  # 取出每行数据，即列表 lines 中的一个元素
-        # print(f"t={t[2]}")
         t[7] = t[7].strip('\n')  # 删除每行后的换行符
         card_dict = {
             'num_str': t[0],
@@ -26,7 +26,6 @@ def load_info():
         card_list.append(card_dict)  # 将学生信息字典添加到列表中
     print('学生信息成功导入！')
     fr.close()
-    pass
 
 
 def save_info():
@@ -34,19 +33,19 @@ def save_info():
     fw.write(" ".join(headline))  # 写入表头
     for i in range(len(card_list)):
         fw.write(card_list[i]["num_str"] + "\t")  # 写入每行有效数据
-    fw.write(card_list[i]["name_str"] + "\t")
-    fw.write(card_list[i]["class_str"] + "\t")
-    fw.write(card_list[i]["sex_str"] + "\t")
-    fw.write(card_list[i]["age_str"] + "\t")
-    fw.write(card_list[i]["phone_str"] + "\t")
-    fw.write(card_list[i]["qq_str"] + "\t")
-    fw.write(card_list[i]["addr_str"] + "\n")
+        fw.write(card_list[i]["name_str"] + "\t")
+        fw.write(card_list[i]["class_str"] + "\t")
+        fw.write(card_list[i]["sex_str"] + "\t")
+        fw.write(card_list[i]["age_str"] + "\t")
+        fw.write(card_list[i]["phone_str"] + "\t")
+        fw.write(card_list[i]["qq_str"] + "\t")
+        fw.write(card_list[i]["addr_str"] + "\n")
     print('学生信息成功保存！')
     fw.close()
-    pass
 
 
 def show_menu():
+    """显示菜单"""
     print()
     print('*' * 70)
     print('欢迎使用【学生信息管理系统】')
@@ -63,6 +62,7 @@ def show_menu():
 
 
 def new_student():
+    """新增学生"""
     print('-' * 70)
     print('新增学生')
     # 提示用户输入学生的详细信息
@@ -87,25 +87,25 @@ def new_student():
     card_list.append(card_dict)  # 一个字典的键值对为列表中的一个元素
     # 提示用户添加成功
     print('添加%s 的信息成功' % name_str)
-    pass
 
 
 def show_all():
+    """显示所有学生信息"""
     print('-' * 70)
     print('显示所有学生信息')
     # 判断是否存在学生信息记录，如果没有，提示用户并且返回
     if len(card_list) == 0:
         print('当前没有任何学生记录，请使用新增功能添加学生信息')
-    return
+        return
     # 打印表头
-    for name in ["学号", "姓名", "班级", "性别", "年龄", "电话", "QQ", "地址"]:
+    for name in ["学号", "姓名", "班级", "性别", "年龄", "   电话", "   QQ", "   地址"]:
         print(name, "\t", end="")
     print('')
     # 打印分隔线
     print('=' * 70)
     # 遍历学生信息列表依次输出字典信息
     for card_dict in card_list:
-        print('%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s' % (card_dict['num_str'],
+        print('%-6s\t%-6s\t%-6s\t%-3s\t%-6s\t%-11s\t%-11s\t%6s' % (card_dict['num_str'],
                                                   card_dict['name_str'],
                                                   card_dict['class_str'],
                                                   card_dict['sex_str'],
@@ -113,7 +113,6 @@ def show_all():
                                                   card_dict['phone_str'],
                                                   card_dict['qq_str'],
                                                   card_dict['addr_str']))
-    pass
 
 
 def search_student():
@@ -128,19 +127,16 @@ def search_student():
             print("学号\t 姓名\t 班级\t 性别\t 年龄\t 电话\tQQ\t 地址")
             print('=' * 70)
             print('%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s' % (card_list[i]['num_str'],
-                                                      card_list[i]['name_str'],
-                                                      card_list[i]['class_str'],
-                                                      card_list[i]['sex_str'],
-                                                      card_list[i]['age_str'],
-                                                      card_list[i]['phone_str'],
-                                                      card_list[i]['qq_str'],
-                                                      card_list[i]['addr_str']))
+                                              card_list[i]['name_str'],
+                                              card_list[i]['class_str'],
+                                              card_list[i]['sex_str'],
+                                              card_list[i]['age_str'],
+                                              card_list[i]['phone_str'],
+                                              card_list[i]['qq_str'],
+                                              card_list[i]['addr_str']))
             break
         else:
             print('抱歉，没有找到%s' % find_name)
-
-
-pass
 
 
 def update_student():
@@ -150,14 +146,14 @@ def update_student():
         if find_num == card_list[i]['num_str']:
             print("学号\t 姓名\t 班级\t 性别\t 年龄\t 电话\tQQ\t    地址")
             print('%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' % (card_list[i]['num_str'],
-                                                        card_list[i]['name_str'],
-                                                        card_list[i]['class_str'],
-                                                        card_list[i]['sex_str'],
-                                                        card_list[i]['age_str'],
-                                                        card_list[i]['phone_str'],
-                                                        card_list[i]['qq_str'],
-                                                        card_list[i]['addr_str']))
-            # 替换已经存在的键值对(学号不能修改)
+                                                card_list[i]['name_str'],
+                                                card_list[i]['class_str'],
+                                                card_list[i]['sex_str'],
+                                                card_list[i]['age_str'],
+                                                card_list[i]['phone_str'],
+                                                card_list[i]['qq_str'],
+                                                card_list[i]['addr_str']))
+         # 替换已经存在的键值对(学号不能修改)
             card_list[i]['name_str'] = input_info(card_list[i]['name_str'], '姓名：')
             card_list[i]['class_str'] = input_info(card_list[i]['class_str'], '班级：')
             card_list[i]['sex_str'] = input_info(card_list[i]['sex_str'], '性别：')
@@ -169,13 +165,29 @@ def update_student():
             break
         else:
             print('抱歉，没有找到学号为%s 的学生' % find_num)
-    pass
+
+
+def input_info(dict_value, tip_message):
+    """
+    :param dict_value:字典中原有的值
+    :param tip_message:输入的提示文字
+    :return:如果用户输入了内容，就返回内容，负责返回字典中原有的值
+    """
+    # 1.提示用户输入内容
+    result_str = input(tip_message)
+    # 2.针对用户的输入进行判断，如果用户输入了内容，直接返回结果
+    if len(result_str) > 0:
+        return result_str
+    # 3.如果用户没有输入内容，返回‘字典中原有的值’
+    else:
+        return dict_value
 
 
 def delete_student():
+    """删除学生信息"""
     find_num = input('请输入待删除学生学号：')
     for i in range(len(card_list)):
         if find_num == card_list[i]['num_str']:
             del card_list[i]
-            print('删除学生信息成功！')
-    pass
+            break
+    print('删除学生信息成功！')
