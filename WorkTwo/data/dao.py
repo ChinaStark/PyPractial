@@ -7,9 +7,9 @@ def getConnection() -> Connection:
     """获取数据库连接对象"""
     conn = Connection(
         host="localhost",
-        port=3308,
+        port=3306,
         user="root",
-        password="123456",
+        password="123456789",
         autocommit=True
     )
     return conn
