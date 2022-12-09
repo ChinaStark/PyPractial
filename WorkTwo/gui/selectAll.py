@@ -36,5 +36,5 @@ treeview.pack(side=LEFT, anchor=N)
 stulist = WorkTwo.data.dao.selectAll()
 
 for index,Stu in enumerate(stulist):  # 写入数据
-    treeview.insert('', index, values=(Stu.StuId, Stu.Name,Stu.Sex,Stu.ClassName,Stu.Math,Stu.Chinese,Stu.English))
+    treeview.insert('', index, values=(Stu.StuId, Stu.Name,Stu.ClassName,Stu.Sex,Stu.Math,Stu.Chinese,Stu.English))
 root.mainloop()  # 进入消息循环

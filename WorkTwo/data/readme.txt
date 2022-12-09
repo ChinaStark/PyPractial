@@ -1,4 +1,5 @@
 数据库名：python
+create database python;
 
 user数据库表
     username字段      varchar(15)
