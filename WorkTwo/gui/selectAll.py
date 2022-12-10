@@ -53,12 +53,6 @@ def fun():
         else:
             ca += 1
 
-
-
-
-
-
-
     fig, (ax1, ax2, ax3) = plt.subplots(nrows=1, ncols=3)  # sharex=False, sharey=False
 
     plt.rcParams['font.sans-serif'] = ['SimHei']
@@ -68,7 +62,7 @@ def fun():
     SizeEnglish = [ea, eb, ec, ed, ee]
     colors = ['red', 'yellowgreen', 'lightskyblue', 'yellow', 'purple']  # 每块扇形的颜色
     explode = (0.01, 0.01, 0.01, 0.01, 0.01)
-    ax1.pie(SizeMath, explode=explode,
+    ax1.pie(SizeEnglish, explode=explode,
             labels=labels,
             colors=colors,
             labeldistance=0.5,  # 图例距圆心半径倍距离
@@ -78,8 +72,8 @@ def fun():
             pctdistance=1.1
             )  # 数值距圆心半径倍数距离
     plt.subplot(1, 3, 1)
-    plt.title("语文成绩统计")
-    ax2.pie(SizeMath, explode=explode,
+    plt.title("英语成绩统计")
+    ax2.pie(Sizechinese, explode=explode,
             labels=labels,
             colors=colors,
             labeldistance=0.5,  # 图例距圆心半径倍距离
@@ -88,7 +82,7 @@ def fun():
             startangle=90,  # 逆时针起始角度设置
             pctdistance=1.1)  # 数值距圆心半径倍数距离
     plt.subplot(1, 3, 2)
-    plt.title("数学成绩统计")
+    plt.title("语文成绩统计")
     ax3.pie(SizeMath, explode=explode,
             labels=labels,
             colors=colors,
@@ -98,13 +92,14 @@ def fun():
             startangle=90,  # 逆时针起始角度设置
             pctdistance=1.1)  # 数值距圆心半径倍数距离
     plt.subplot(1, 3, 3)
-    plt.title("语文成绩统计")
+    plt.title("数学成绩统计")
+    plt.title("成绩图表")
     plt.show()
 
 
 root = Tk()  # 初始框的声明
-root.geometry('700x300+100+100')
-
+root.geometry('700x300+450+150')
+root.title("成绩概览")
 columns = ("学号", "姓名", "班级", "性别", "语文", "数学", "英语")
 treeview = ttk.Treeview(root, height=8, show="headings", columns=columns
                         )  # 表格
@@ -133,7 +128,15 @@ treeview.grid(row=0, column=0)
 # treeview.pack(side=TOP)
 stulist = WorkTwo.data.dao.selectAll()
 Button(text='成绩概览', height=2, width=13, bg="gray", command=fun).grid(row=1, column=0, padx=10, pady=10)
-
+m ,c,e= 0,0,0
+Index = 0
 for index, Stu in enumerate(stulist):  # 写入数据
+    Index+=1
+    m+=int(Stu.Math)
+    c += int(Stu.Chinese)
+    e += int(Stu.English)
     treeview.insert('', index, values=(Stu.StuId, Stu.Name, Stu.ClassName, Stu.Sex, Stu.Math, Stu.Chinese, Stu.English))
+
+treeview.insert('', Index+1, values=(' ', ' ', ' ','平均分', int(m/Index), int(c/Index),int(e/Index)))
+
 root.mainloop()  # 进入消息循环
