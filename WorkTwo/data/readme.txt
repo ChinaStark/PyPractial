@@ -15,16 +15,16 @@ Student数据库表
     id              varchar(10)
     name            varchar(10)
     sex             varchar(10)
-    classname       int
+    classname       varchar(10)
     math            double
     chinese         double
     english         double
 
     建表语句：
-    create table if not exists user(
+    create table if not exists student(
         id varchar(10),
-        sex varchar(2),
         name varchar(10),
+        sex varchar(2),
         classname varchar(10),
         math varchar(10),
         chinese varchar(10),

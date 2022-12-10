@@ -2,6 +2,7 @@ from pymysql import Connection
 from WorkTwo.POJO import User, Stu
 
 
+
 def getConnection() -> Connection:
     """获取数据库连接对象"""
     conn = Connection(
@@ -14,12 +15,12 @@ def getConnection() -> Connection:
     return conn
 
 
-def loginCheck(user: User) -> bool:
+def login(user: User) -> bool:
     """判断User的账号密码是否正确"""
     conn = getConnection()
     conn.select_db("python")
     cursor = conn.cursor()
-    sql = f"select username,password from user where username = '{user.getUsername()}' and password = '{user.getPassword()}'"
+    sql = f"select username,password from user where username = '{user.Username}' and password = '{user.Password}'"
     count = cursor.execute(sql)
     if count > 0:
         return True
@@ -37,9 +38,7 @@ def selectAll() -> list:
     data_tuple = cursor.fetchall()
     studentList = list()
     for data in data_tuple:
-        print(data)
-        student = Stu(stuid=data[0], name=data[2], sex=data[1], classname=data[3], math=data[4], chinese=data[5],
-                      english=data[6])
+        student = Stu(stuid=data[0], name=data[2], sex=data[1], classname=data[3], math=data[4], chinese=data[5], english=data[6])
         studentList.append(student)
 
     return studentList
@@ -68,8 +67,8 @@ def update(id, student: Stu) -> bool:
     conn.select_db("python")
     cursor = conn.cursor()
     sql = f"update student set name='{student.Name}',sex='{student.Sex}'," \
-          f"classname={student.ClassName},math={student.Math}," \
-          f"chinese={student.Chinese},english={student.English} where id='{id}'"
+          f"classname='{student.ClassName}',math='{student.Math}'," \
+          f"chinese='{student.Chinese}',english='{student.English}' where id='{id}'"
     count = cursor.execute(sql)
     return True if count > 0 else False
 
@@ -87,7 +86,6 @@ def insert(student: Stu):
           f"'{student.English}')"
     count = cursor.execute(sql)
     return True if count > 0 else False
-
 
 def delete(id) -> bool:
     """如果学生学号存在，删除学生信息，并且返回True；如果学号不存在，则返回False"""

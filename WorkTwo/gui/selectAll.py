@@ -1,12 +1,105 @@
 from tkinter import ttk
 from tkinter import *
-
+from WorkTwo.POJO import Stu
 import WorkTwo.data.dao
 from WorkTwo.data.dao import *
+from matplotlib import pyplot as plt
+
+
+def fun():
+    stulist = WorkTwo.data.dao.selectAll()
+    Mathcount = []
+    engcount = []
+    chinese = []
+    ma, mb, mc, md, me = 0, 0, 0, 0, 0
+    ea, eb, ec, ed, ee = 0, 0, 0, 0, 0
+    ca, cb, cc, cd, ce = 0, 0, 0, 0, 0
+    # Create three subplots sharing x axis
+    for index, Stu in enumerate(stulist):  # 写入数据
+        Mathcount.append(int(Stu.Math))
+        engcount.append(int(Stu.English))
+        chinese.append(int(Stu.Chinese))
+    for i in range(len(Mathcount)):
+        if Mathcount[i] < 60:
+            me += 1
+        elif 60 <= Mathcount[i] < 70:
+            md += 1
+        elif 70 <= Mathcount[i] < 80:
+            mc += 1
+        elif 80 <= Mathcount[i] < 90:
+            mb += 1
+        else:
+            ma += 1
+    for i in range(len(engcount)):
+        if engcount[i] < 60:
+            ee += 1
+        elif 60 <= engcount[i] < 70:
+            ed += 1
+        elif 70 <= engcount[i] < 80:
+            ec += 1
+        elif 80 <= engcount[i] < 90:
+            eb += 1
+        else:
+            ea += 1
+    for i in range(len(chinese)):
+        if chinese[i] < 60:
+            ce += 1
+        elif 60 <= chinese[i] < 70:
+            cd += 1
+        elif 70 <= chinese[i] < 80:
+            cc += 1
+        elif 80 <= chinese[i] < 90:
+            cb += 1
+        else:
+            ca += 1
+
+    fig, (ax1, ax2, ax3) = plt.subplots(nrows=1, ncols=3)  # sharex=False, sharey=False
+
+    plt.rcParams['font.sans-serif'] = ['SimHei']
+    labels = ['优', '良', '中', '合格', '差']  # 定义各个扇形的面积/标签
+    SizeMath = [ma, mb, mc, md, me]  # 各个值，影响各个扇形的面积
+    Sizechinese = [ca, cb, cc, cd, ce]
+    SizeEnglish = [ea, eb, ec, ed, ee]
+    colors = ['red', 'yellowgreen', 'lightskyblue', 'yellow', 'purple']  # 每块扇形的颜色
+    explode = (0.01, 0.01, 0.01, 0.01, 0.01)
+    ax1.pie(SizeEnglish, explode=explode,
+            labels=labels,
+            colors=colors,
+            labeldistance=0.5,  # 图例距圆心半径倍距离
+            autopct='%3.2f%%',  # 数值保留固定小数位
+            shadow=False,  # 无阴影设置
+            startangle=90,  # 逆时针起始角度设置
+            pctdistance=1.1
+            )  # 数值距圆心半径倍数距离
+    plt.subplot(1, 3, 1)
+    plt.title("英语成绩统计")
+    ax2.pie(Sizechinese, explode=explode,
+            labels=labels,
+            colors=colors,
+            labeldistance=0.5,  # 图例距圆心半径倍距离
+            autopct='%3.2f%%',  # 数值保留固定小数位
+            shadow=False,  # 无阴影设置
+            startangle=90,  # 逆时针起始角度设置
+            pctdistance=1.1)  # 数值距圆心半径倍数距离
+    plt.subplot(1, 3, 2)
+    plt.title("语文成绩统计")
+    ax3.pie(SizeMath, explode=explode,
+            labels=labels,
+            colors=colors,
+            labeldistance=0.5,  # 图例距圆心半径倍距离
+            autopct='%3.2f%%',  # 数值保留固定小数位
+            shadow=False,  # 无阴影设置
+            startangle=90,  # 逆时针起始角度设置
+            pctdistance=1.1)  # 数值距圆心半径倍数距离
+    plt.subplot(1, 3, 3)
+    plt.title("数学成绩统计")
+    plt.title("成绩图表")
+    plt.show()
+
 
 root = Tk()  # 初始框的声明
-root.geometry('700x300+100+100')
-
+root.geometry('700x300+450+150')
+root.title("成绩概览")
 columns = ("学号", "姓名", "班级", "性别", "语文", "数学", "英语")
 treeview = ttk.Treeview(root, height=8, show="headings", columns=columns
                         )  # 表格
@@ -31,10 +124,19 @@ treeview.heading("性别", text="性别")
 treeview.heading("语文", text="语文")
 treeview.heading("数学", text="数学")
 treeview.heading("英语", text="英语")
-treeview.pack(side=LEFT, anchor=N)
-
+treeview.grid(row=0, column=0)
+# treeview.pack(side=TOP)
 stulist = WorkTwo.data.dao.selectAll()
-
+Button(text='成绩概览', height=2, width=13, bg="gray", command=fun).grid(row=1, column=0, padx=10, pady=10)
+m ,c,e= 0,0,0
+Index = 0
 for index, Stu in enumerate(stulist):  # 写入数据
+    Index+=1
+    m+=int(Stu.Math)
+    c += int(Stu.Chinese)
+    e += int(Stu.English)
     treeview.insert('', index, values=(Stu.StuId, Stu.Name, Stu.ClassName, Stu.Sex, Stu.Math, Stu.Chinese, Stu.English))
+
+treeview.insert('', Index+1, values=(' ', ' ', ' ','平均分', int(m/Index), int(c/Index),int(e/Index)))
+
 root.mainloop()  # 进入消息循环
