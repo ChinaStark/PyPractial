@@ -28,7 +28,7 @@ Student数据库表
         classname varchar(10),
         math varchar(10),
         chinese varchar(10),
-        english varchar(10),
+        english varchar(10)
     );
 
 
