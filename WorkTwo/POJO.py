@@ -1,5 +1,5 @@
 class Stu:
-    def __init__(self, stuid, sex, name, classname, math, chinese, english):
+    def __init__(self, stuid=None, sex=None, name=None, classname=None, math=None, chinese=None, english=None):
         self.StuId = stuid
         self.Name = name
         self.Sex = sex
