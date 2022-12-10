@@ -2,7 +2,6 @@ from pymysql import Connection
 from WorkTwo.POJO import User, Stu
 
 
-
 def getConnection() -> Connection:
     """获取数据库连接对象"""
     conn = Connection(
@@ -13,6 +12,7 @@ def getConnection() -> Connection:
         autocommit=True
     )
     return conn
+
 
 def login(user: User) -> bool:
     """判断User的账号密码是否正确"""
@@ -26,6 +26,7 @@ def login(user: User) -> bool:
     else:
         return False
 
+
 def selectAll() -> list:
     """查询全部学生信息，如果没有返回空列表"""
     conn = getConnection()
@@ -37,10 +38,12 @@ def selectAll() -> list:
     studentList = list()
     for data in data_tuple:
         print(data)
-        student = Stu(stuid=data[0], name=data[2], sex=data[1], classname=data[3], math=data[4], chinese=data[5], english=data[6])
+        student = Stu(stuid=data[0], name=data[2], sex=data[1], classname=data[3], math=data[4], chinese=data[5],
+                      english=data[6])
         studentList.append(student)
 
     return studentList
+
 
 def selectOne(id) -> Stu:
     """根据学号查询学生信息，如果没有返回空列表"""
