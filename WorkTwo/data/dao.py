@@ -2,7 +2,6 @@ from pymysql import Connection
 from WorkTwo.POJO import User, Stu
 
 
-
 def getConnection() -> Connection:
     """获取数据库连接对象"""
     conn = Connection(
