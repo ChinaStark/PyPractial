@@ -1,8 +1,16 @@
 import tkinter as tk
 from tkinter import messagebox
+from tkinter import ttk
 from tkinter import *
+
+import WorkTwo.gui.selectone
 from WorkTwo.POJO import Stu
 from WorkTwo.data.dao import *
+from WorkTwo.gui.selectAll import *
+from update import *
+from delete import *
+from selectone import *
+from matplotlib import pyplot as plt
 
 
 def show_menu(root, page):
@@ -16,19 +24,23 @@ def show_menu(root, page):
            background="white",
            activebackground="wheat").pack(
         padx=80, pady=3)
-    Button(page, text="更新学生信息", width=25, font=28, foreground="black", background="white",
+    Button(page, text="更新学生信息", command=lambda: UpdatePage(root, page), width=25, font=28, foreground="black",
+           background="white",
            activebackground="wheat").pack(
         padx=80, pady=3)
-    Button(page, text="删除学生信息", width=25, font=28, foreground="black", background="white",
+    Button(page, text="删除学生信息", command=lambda: DelPage(root, page), width=25, font=28,
+           foreground="black",
+           background="white",
            activebackground="wheat").pack(
         padx=80, pady=3)
-    Button(page, text="查询一位学生信息", width=25, font=28, foreground="black", background="white",
+    Button(page, text="查询一位学生信息", command=lambda: WorkTwo.gui.selectone.SelOne(root, page), width=25,
+           font=28,
+           foreground="black", background="white",
            activebackground="wheat").pack(
         padx=80, pady=3)
-    Button(page, text="查询所有学生信息", width=25, font=28, foreground="black", background="white",
-           activebackground="wheat").pack(
-        padx=80, pady=3)
-    Button(page, text="返回登录界面", width=25, font=28, foreground="black", background="white",
+    Button(page, text="查询所有学生信息", command=lambda: WorkTwo.gui.selectAll.selectAll(root, page), width=25,
+           font=28, foreground="black",
+           background="white",
            activebackground="wheat").pack(
         padx=80, pady=3)
 
@@ -78,8 +90,16 @@ def addStuInfo(Stu_ID, Stu_Name, Stu_Sex, Stu_Classname, Stu_Math, Stu_Chinese, 
         messagebox.showinfo("提示框", "添加成功！")
 
     else:
-        messagebox.showerror("错误", "添加失败！")
+        messagebox.showerror("错误", "添加失败！学生的学号不能重复")
 
 
-def resetStuInfo(stu: Stu):
-    pass
+def DelPage(root, page):
+    Del(root, page)
+
+
+def UpdatePage(root, page):
+    Update(root, page)
+
+
+def selectOne(root, page):
+    SelOne(root, page)

@@ -5,7 +5,7 @@ from tkinter import messagebox
 from WorkTwo.data.dao import *
 
 
-def login(root, page):
+def loginPage(root, page):
     username = StringVar()
     password = StringVar()
 
@@ -27,7 +27,7 @@ def login(root, page):
 def Check(username, password, root, page):
     user = User(username.get(), password.get())
     # print(user.Username, user.Password)
-    if loginCheck(user) == True:
+    if login(user) == True:
         messagebox.showinfo("登录提示", "登录成功")
         show_menu(root, page)
     else:
@@ -36,6 +36,6 @@ def Check(username, password, root, page):
 
 root = Tk()
 page = Frame(root)
-login(root, page)
+loginPage(root, page)
 
 root.mainloop()

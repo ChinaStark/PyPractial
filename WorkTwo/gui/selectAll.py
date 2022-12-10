@@ -3,10 +3,11 @@ from tkinter import *
 from WorkTwo.POJO import Stu
 import WorkTwo.data.dao
 from WorkTwo.data.dao import *
+
 from matplotlib import pyplot as plt
 
 
-def fun():
+def Stu_Table():
     stulist = WorkTwo.data.dao.selectAll()
     Mathcount = []
     engcount = []
@@ -97,46 +98,47 @@ def fun():
     plt.show()
 
 
-root = Tk()  # 初始框的声明
-root.geometry('700x300+450+150')
-root.title("成绩概览")
-columns = ("学号", "姓名", "班级", "性别", "语文", "数学", "英语")
-treeview = ttk.Treeview(root, height=8, show="headings", columns=columns
-                        )  # 表格
+def selectAll(root, page):
+    page.destroy()
+    page = Frame(root)
+    page.grid()
 
-ybar = Scrollbar(treeview, orient='vertical', command=treeview.yview)
-ybar.place(relx=0.971, rely=0.028, relwidth=0.024, relheight=0.958)
+    root.geometry('700x300+450+150')
+    root.title("成绩概览")
+    columns = ("学号", "姓名", "班级", "性别", "语文", "数学", "英语")
+    treeview = ttk.Treeview(root, height=8, show="headings", columns=columns)  # 表格
 
-treeview.config(yscrollcommand=ybar.set)
+    ybar = Scrollbar(treeview, orient='vertical', command=treeview.yview)
+    ybar.place(relx=0.971, rely=0.028, relwidth=0.024, relheight=0.958)
 
-treeview.column("学号", width=100, anchor='center')  # 表示列,不显示
-treeview.column("姓名", width=100, anchor='center')
-treeview.column("班级", width=100, anchor='center')
-treeview.column("性别", width=100, anchor='center')  # 表示列,不显示
-treeview.column("语文", width=100, anchor='center')
-treeview.column("数学", width=100, anchor='center')
-treeview.column("英语", width=100, anchor='center')
+    treeview.config(yscrollcommand=ybar.set)
 
-treeview.heading("学号", text="学号")
-treeview.heading("姓名", text="姓名")
-treeview.heading("班级", text="班级")
-treeview.heading("性别", text="性别")
-treeview.heading("语文", text="语文")
-treeview.heading("数学", text="数学")
-treeview.heading("英语", text="英语")
-treeview.grid(row=0, column=0)
-# treeview.pack(side=TOP)
-stulist = WorkTwo.data.dao.selectAll()
-Button(text='成绩概览', height=2, width=13, bg="gray", command=fun).grid(row=1, column=0, padx=10, pady=10)
-m ,c,e= 0,0,0
-Index = 0
-for index, Stu in enumerate(stulist):  # 写入数据
-    Index+=1
-    m+=int(Stu.Math)
-    c += int(Stu.Chinese)
-    e += int(Stu.English)
-    treeview.insert('', index, values=(Stu.StuId, Stu.Name, Stu.ClassName, Stu.Sex, Stu.Math, Stu.Chinese, Stu.English))
+    treeview.column("学号", width=100, anchor='center')  # 表示列,不显示
+    treeview.column("姓名", width=100, anchor='center')
+    treeview.column("班级", width=100, anchor='center')
+    treeview.column("性别", width=100, anchor='center')  # 表示列,不显示
+    treeview.column("语文", width=100, anchor='center')
+    treeview.column("数学", width=100, anchor='center')
+    treeview.column("英语", width=100, anchor='center')
 
-treeview.insert('', Index+1, values=(' ', ' ', ' ','平均分', int(m/Index), int(c/Index),int(e/Index)))
+    treeview.heading("学号", text="学号")
+    treeview.heading("姓名", text="姓名")
+    treeview.heading("班级", text="班级")
+    treeview.heading("性别", text="性别")
+    treeview.heading("语文", text="语文")
+    treeview.heading("数学", text="数学")
+    treeview.heading("英语", text="英语")
+    treeview.grid(row=0, column=0)
+    stulist = WorkTwo.data.dao.selectAll()
+    Button(text='成绩概览', height=2, width=13, bg="gray", command=Stu_Table).grid(row=1, column=0, padx=10, pady=10)
+    m, c, e = 0, 0, 0
+    Index = 0
+    for index, Stu in enumerate(stulist):  # 写入数据
+        Index += 1
+        m += int(Stu.Math)
+        c += int(Stu.Chinese)
+        e += int(Stu.English)
+        treeview.insert('', index,
+                        values=(Stu.StuId, Stu.Name, Stu.ClassName, Stu.Sex, Stu.Math, Stu.Chinese, Stu.English))
 
-root.mainloop()  # 进入消息循环
+    treeview.insert('', Index + 1, values=(' ', ' ', ' ', '平均分', int(m / Index), int(c / Index), int(e / Index)))

@@ -1,5 +1,5 @@
 class Stu:
-    def __init__(self, stuid, sex, name, classname, math, chinese, english):
+    def __init__(self, stuid=None, name=None, sex=None, classname=None, math=None, chinese=None, english=None):
         self.StuId = stuid
         self.Name = name
         self.Sex = sex
@@ -17,9 +17,3 @@ class User:
     def __init__(self, username, pwd):
         self.Username = username
         self.Password = pwd
-
-    def getUsername(self):
-        return self.Username
-
-    def getPassword(self):
-        return self.Password

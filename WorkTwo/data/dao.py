@@ -38,7 +38,7 @@ def selectAll() -> list:
     data_tuple = cursor.fetchall()
     studentList = list()
     for data in data_tuple:
-        student = Stu(stuid=data[0], name=data[2], sex=data[1], classname=data[3], math=data[4], chinese=data[5], english=data[6])
+        student = Stu(stuid=data[0], name=data[1], sex=data[2], classname=data[3], math=data[4], chinese=data[5], english=data[6])
         studentList.append(student)
 
     return studentList
