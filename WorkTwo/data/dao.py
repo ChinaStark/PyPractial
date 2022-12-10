@@ -38,14 +38,13 @@ def selectAll() -> list:
     studentList = list()
     for data in data_tuple:
         print(data)
-        student = Stu(stuid=data[0], name=data[2], sex=data[1], classname=data[3], math=data[4], chinese=data[5],
-                      english=data[6])
+        student = Stu(stuid=data[0], name=data[2], sex=data[1], classname=data[3], math=data[4], chinese=data[5], english=data[6])
         studentList.append(student)
 
     return studentList
 
 
-def selectOne(id) -> Stu:
+def selectOne(id) -> list[Stu]:
     """根据学号查询学生信息，如果没有返回空列表"""
     conn = getConnection()
     conn.select_db("python")
@@ -68,8 +67,8 @@ def update(id, student: Stu) -> bool:
     conn.select_db("python")
     cursor = conn.cursor()
     sql = f"update student set name='{student.Name}',sex='{student.Sex}'," \
-          f"classname={student.ClassName},math={student.Math}," \
-          f"chinese={student.Chinese},english={student.English} where id='{id}'"
+          f"classname='{student.ClassName}',math='{student.Math}'," \
+          f"chinese='{student.Chinese}',english='{student.English}' where id='{id}'"
     count = cursor.execute(sql)
     return True if count > 0 else False
 
@@ -83,8 +82,8 @@ def insert(student: Stu):
     conn.select_db("python")
     cursor = conn.cursor()
     sql = f"insert into student values('{student.StuId}','{student.Name}'," \
-          f"'{student.Sex}',{student.ClassName},{student.Math},{student.Chinese}," \
-          f"{student.English})"
+          f"'{student.Sex}','{student.ClassName}','{student.Math}','{student.Chinese}'," \
+          f"'{student.English}')"
     count = cursor.execute(sql)
     return True if count > 0 else False
 
@@ -93,7 +92,6 @@ def delete(id) -> bool:
     conn = getConnection()
     conn.select_db("python")
     cursor = conn.cursor()
-    sql = f"delete from student where id={id}"
+    sql = f"delete from student where id='{id}'"
     count = cursor.execute(sql)
     return True if count > 0 else False
-
