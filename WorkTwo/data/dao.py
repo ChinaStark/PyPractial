@@ -37,7 +37,8 @@ def selectAll() -> list:
     data_tuple = cursor.fetchall()
     studentList = list()
     for data in data_tuple:
-        student = Stu(stuid=data[0], name=data[1], sex=data[2], classname=data[3], math=data[4], chinese=data[5], english=data[6])
+        student = Stu(stuid=data[0], name=data[1], sex=data[2], classname=data[3], math=data[4], chinese=data[5],
+                      english=data[6])
         studentList.append(student)
 
     return studentList
@@ -85,6 +86,7 @@ def insert(student: Stu):
           f"'{student.English}')"
     count = cursor.execute(sql)
     return True if count > 0 else False
+
 
 def delete(id) -> bool:
     """如果学生学号存在，删除学生信息，并且返回True；如果学号不存在，则返回False"""
