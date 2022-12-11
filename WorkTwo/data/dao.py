@@ -8,7 +8,7 @@ def getConnection() -> Connection:
         host="localhost",
         port=3306,
         user="root",
-        password="4aea6030",
+        password="123456789",
         autocommit=True
     )
     return conn

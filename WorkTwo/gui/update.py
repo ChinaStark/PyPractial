@@ -12,49 +12,47 @@ def check(id):
 
 
 class Update():
-    def __init__(self, root, page):
-
-        root.title('修改')
-        root.geometry("500x200+500+300")  # 窗口大小
-        self.setup_UI(root, page)
-
-    def setup_UI(self, root, page):
-
-        page.destroy()
-        page = tk.Frame(root)
-        page.pack()
-        tk.Label(page, text='请输入要查询的id号: ', font=20, width=20, pady=15).grid(row=1, column=1)
+    def __init__(self):
+        self.page = None
+        self.root = None
+        self.root = tk.Tk()
+        self.root.title('修改')
+        self.root.geometry("500x200+500+300")  # 窗口大小
+        self.page = tk.Frame(self.root)
+        self.page.pack()
+        tk.Label(self.page, text='请输入要查询的id号: ', font=20, width=20, pady=15).grid(row=1, column=1)
         self.id = tk.StringVar()
-        self.entid = tk.Entry(page, textvariable=self.id, font=(",''20',"), width=25)
+        self.id.set("1")
+        self.entid = tk.Entry(self.page, textvariable=self.id, font=(",''20',"), width=25)
         self.id.set("1")
         self.entid.grid(row=1, column=2)
         self.status = tk.StringVar()
-        self.statusLabel = tk.Label(page, text='', font=15, fg='red', textvariable=self.status, width=10)
+        self.statusLabel = tk.Label(self.page, text='', font=15, fg='red', textvariable=self.status, width=10)
         self.statusLabel.grid(row=2, column=1, columnspan=2)
-        tk.Button(page, text="查询", font=20, width=6, command=lambda: self.ok(root, page)).grid(row=4, column=1,
+        tk.Button(self.page, text="查询", font=20, width=6, command=lambda: self.ok()).grid(row=4, column=1,
                                                                                                  pady=10, sticky=tk.N)
         # tk.Button(page, text="返回", font=20, width=6, command=self.cancel).grid(row=4, column=2, pady=10, sticky=tk.N)
+        self.root.mainloop()
+    def ok(self):
+        self.login(self.id.get())
 
-    def ok(self, root, page):
-        self.login(self.id.get(), root, page)
-
-    def login(self, id, root, page):
+    def login(self, id):
         if id:
             validate = check(id)
             if len(validate) != 0:
                 self.status.set("查找成功")
                 print(validate)
-                self.setup_UI2(validate, root, page)
+                self.setup_UI2(validate)
             else:
                 self.status.set('学号不存在')
         else:
             self.status.set("请输入id号")
 
-    def setup_UI2(self, student: Stu, root, page):
-        page.destroy()
-        root.geometry("500x700+500+100")
+    def setup_UI2(self, student: Stu):
+        self.page.destroy()
+        self.root.geometry("500x700+500+100")
         stu = Stu()
-        page = tk.Frame(root)
+        page = tk.Frame(self.root)
         page.pack()
         self.stringval = []
         print(student)
@@ -109,10 +107,4 @@ class Update():
         dao.update(stu.StuId, stu)
         showinfo("提示框", "保存成功")
 
-    # def returns(self):
-    #     self.destroy()
-    #     Login()
-    #
-    # def cancel(self):
-    #     self.destroy()
-    #     pass
+Update()

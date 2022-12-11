@@ -24,7 +24,7 @@ def show_menu(root, page):
            background="white",
            activebackground="wheat").pack(
         padx=80, pady=3)
-    Button(page, text="更新学生信息", command=lambda: UpdatePage(root, page), width=25, font=28, foreground="black",
+    Button(page, text="更新学生信息", command=lambda: UpdatePage(), width=25, font=28, foreground="black",
            background="white",
            activebackground="wheat").pack(
         padx=80, pady=3)
@@ -97,8 +97,8 @@ def DelPage(root, page):
     Del(root, page)
 
 
-def UpdatePage(root, page):
-    Update(root, page)
+def UpdatePage():
+    Update()
 
 
 def selectOne(root, page):
