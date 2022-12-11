@@ -74,6 +74,7 @@ def Stu_Table():
             )  # 数值距圆心半径倍数距离
     plt.subplot(1, 3, 1)
     plt.title("英语成绩统计")
+
     ax2.pie(Sizechinese, explode=explode,
             labels=labels,
             colors=colors,
@@ -84,6 +85,7 @@ def Stu_Table():
             pctdistance=1.1)  # 数值距圆心半径倍数距离
     plt.subplot(1, 3, 2)
     plt.title("语文成绩统计")
+
     ax3.pie(SizeMath, explode=explode,
             labels=labels,
             colors=colors,
@@ -94,7 +96,8 @@ def Stu_Table():
             pctdistance=1.1)  # 数值距圆心半径倍数距离
     plt.subplot(1, 3, 3)
     plt.title("数学成绩统计")
-    plt.title("成绩图表")
+
+    # plt.title("成绩图表")
     plt.show()
 
 

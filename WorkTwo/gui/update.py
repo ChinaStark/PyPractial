@@ -108,7 +108,6 @@ class Update():
         print(stu)
         dao.update(stu.StuId, stu)
         showinfo("提示框", "保存成功")
-        self.destroy()
 
     # def returns(self):
     #     self.destroy()
