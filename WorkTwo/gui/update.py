@@ -1,7 +1,7 @@
 import tkinter
 import tkinter as tk
 from tkinter.messagebox import *
-
+from menu import *
 from WorkTwo.POJO import Stu
 from WorkTwo.data import *
 def check(id) :
@@ -117,6 +117,7 @@ def updates(stringval,root,page):
 
 def returns(root):
     root.destroy()
+
 
 def cancel(root):
     root.destroy()

@@ -3,11 +3,10 @@ from tkinter import *
 from WorkTwo.POJO import Stu
 import WorkTwo.data.dao
 from WorkTwo.data.dao import *
-
 from matplotlib import pyplot as plt
 
 
-def Stu_Table():
+def fun():
     stulist = WorkTwo.data.dao.selectAll()
     Mathcount = []
     engcount = []
@@ -74,7 +73,6 @@ def Stu_Table():
             )  # 数值距圆心半径倍数距离
     plt.subplot(1, 3, 1)
     plt.title("英语成绩统计")
-
     ax2.pie(Sizechinese, explode=explode,
             labels=labels,
             colors=colors,
@@ -85,7 +83,6 @@ def Stu_Table():
             pctdistance=1.1)  # 数值距圆心半径倍数距离
     plt.subplot(1, 3, 2)
     plt.title("语文成绩统计")
-
     ax3.pie(SizeMath, explode=explode,
             labels=labels,
             colors=colors,
@@ -96,20 +93,17 @@ def Stu_Table():
             pctdistance=1.1)  # 数值距圆心半径倍数距离
     plt.subplot(1, 3, 3)
     plt.title("数学成绩统计")
-
-    # plt.title("成绩图表")
+    plt.title("成绩图表")
     plt.show()
 
 
-def selectAll(root, page):
-    page.destroy()
-    page = Frame(root)
-    page.grid()
-
+def SelectAll():
+    root = Tk()  # 初始框的声明
     root.geometry('700x300+450+150')
     root.title("成绩概览")
     columns = ("学号", "姓名", "班级", "性别", "语文", "数学", "英语")
-    treeview = ttk.Treeview(root, height=8, show="headings", columns=columns)  # 表格
+    treeview = ttk.Treeview(root, height=8, show="headings", columns=columns
+                            )  # 表格
 
     ybar = Scrollbar(treeview, orient='vertical', command=treeview.yview)
     ybar.place(relx=0.971, rely=0.028, relwidth=0.024, relheight=0.958)
@@ -132,8 +126,9 @@ def selectAll(root, page):
     treeview.heading("数学", text="数学")
     treeview.heading("英语", text="英语")
     treeview.grid(row=0, column=0)
+    # treeview.pack(side=TOP)
     stulist = WorkTwo.data.dao.selectAll()
-    Button(text='成绩概览', height=2, width=13, bg="gray", command=Stu_Table).grid(row=1, column=0, padx=10, pady=10)
+    Button(text='成绩概览', height=2, width=13, bg="gray", command=fun).grid(row=1, column=0, padx=10, pady=10)
     m, c, e = 0, 0, 0
     Index = 0
     for index, Stu in enumerate(stulist):  # 写入数据
@@ -145,3 +140,5 @@ def selectAll(root, page):
                         values=(Stu.StuId, Stu.Name, Stu.ClassName, Stu.Sex, Stu.Math, Stu.Chinese, Stu.English))
 
     treeview.insert('', Index + 1, values=(' ', ' ', ' ', '平均分', int(m / Index), int(c / Index), int(e / Index)))
+
+    root.mainloop()  # 进入消息循环

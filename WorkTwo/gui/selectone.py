@@ -11,72 +11,68 @@ def check(id) :
 
 
 
+class Login(tk.Tk):
+
+    def __init__(self):
+        super().__init__()
+        self.title('Login')
+        self.geometry("500x150+500+300")  # 窗口大小
+        self.setup_UI()
 
 
-def selectone(root, page):
-    root.title('Login')
-    root.geometry("500x150+500+300")  # 窗口大小
-    setup_UI(root, page)
+    def setup_UI(self):
 
+        self.page = tk.Frame(self)
+        self.page.pack()
+        tk.Label(self.page,text='请输入要查询的id号: ',font=20,width=20,pady=15).grid(row=1,column=1)
+        self.id = tk.StringVar()
+        self.entid = tk.Entry(self.page,textvariable=self.id,width=25)
+        self.entid.grid(row=1,column=2)
+        self.status=tk.StringVar()
+        self.statusLabel = tk.Label(self.page,text='',font=15,fg='red',textvariable=self.status,width=10)
+        self.statusLabel.grid(row=2,column=1,columnspan=2)
+        tk.Button(self.page,text="返回",font=20,width=6,command=self.cancel).grid(row=4,column=2,pady=10,sticky=tk.N)
+        tk.Button(self.page, text="查询",font=20, width=6, command=self.ok).grid(row=4,column=1,pady=10,sticky=tk.N)
 
-def setup_UI(root, page):
-    page.pack()
-    tk.Label(page,text='请输入要查询的id号: ',font=20,width=20,pady=15).grid(row=1,column=1)
-    id = tk.StringVar()
-    entid = tk.Entry(page,textvariable=id,width=25)
-    entid.grid(row=1,column=2)
-    global status
-    status=tk.StringVar()
-    statusLabel = tk.Label(page,text='',font=15,fg='red',textvariable=status,width=10)
-    statusLabel.grid(row=2,column=1,columnspan=2)
-    tk.Button(page,text="返回",font=20,width=6,command=cancel).grid(row=4,column=2,pady=10,sticky=tk.N)
-    tk.Button(page, text="查询",font=20, width=6, command=lambda :ok(id,root,page)).grid(row=4,column=1,pady=10,sticky=tk.N)
-    page.mainloop()
-
-
-def ok(id,root,page):
-    login(id.get(),root,page)
-def login(id,root,page):
-    if id :
-        validate = check(id)
-        if len(validate) != 0:
-            status.set("查找成功")
-            print(validate)
-            setup_UI2(validate[0],root,page)
+    def ok(self):
+        self.login(self.id.get())
+    def login(self,id):
+        if id :
+            validate = check(id)
+            if len(validate) != 0:
+                self.status.set("查找成功")
+                print(validate)
+                self.setup_UI2(validate[0])
+            else:
+                self.status.set('学号不存在')
+                self.setup_UI3( )
         else:
-            status.set('学号不存在')
-            setup_UI3(root, page )
-    else:
-        status.set("请输入id号")
+            self.status.set("请输入id号")
 
-def setup_UI3(root, page ) :
-    root.geometry("500x150+500+300")
+    def setup_UI3(self ) :
+        self.geometry("500x150+500+300")
 
 
-def setup_UI2(student:Stu,root,page) :
-    root.geometry("500x600+500+100")
-    tk.Label(page, text='学生信息 ',font=30, width=10, pady=15,padx=15).grid(row=5, column=1,columnspan=5)
-    tk.Label(page, text='学号： ', font=20,  width=15, pady=15).grid(row=6,column=1)
-    tk.Label(page, text=f'{student.StuId}',font=20, width=10, pady=15).grid(row=6,column=2 )
-    tk.Label(page, text='姓名: ', font=20,width=15, pady=15).grid(row=7, column=1)
-    tk.Label(page, text=f'{student.Name}',font=20, width=10, pady=15).grid(row=7, column=2)
-    tk.Label(page, text='性别: ',font=20, width=15, pady=15).grid(row=8, column=1)
-    tk.Label(page, text=f'{student.Sex}',font=20, width=10, pady=15).grid(row=8, column=2)
-    tk.Label(page, text='班级: ',font=20, width=15, pady=15).grid(row=9, column=1)
-    tk.Label(page, text=f'{student.ClassName}', font=20,width=10, pady=15).grid(row=9, column=2)
-    tk.Label(page, text='数学: ',font=20, width=15, pady=15).grid(row=10, column=1)
-    tk.Label(page, text=f'{student.Math}',font=20, width=10, pady=15).grid(row=10, column=2)
-    tk.Label(page, text='语文: ',font=20, width=15, pady=15).grid(row=11, column=1)
-    tk.Label(page, text=f'{student.Chinese}', font=20,width=10, pady=15).grid(row=11, column=2)
-    tk.Label(page, text='英语: ',font=20, width=15, pady=15).grid(row=12, column=1)
-    tk.Label(page, text=f'{student.English}',font=20, width=10, pady=15).grid(row=12, column=2)
+    def setup_UI2(self,student:Stu) :
+        self.geometry("500x600+500+100")
+        tk.Label(self.page, text='学生信息 ',font=30, width=10, pady=15,padx=15).grid(row=5, column=1,columnspan=5)
+        tk.Label(self.page, text='学号： ', font=20,  width=15, pady=15).grid(row=6,column=1)
+        tk.Label(self.page, text=f'{student.StuId}',font=20, width=10, pady=15).grid(row=6,column=2 )
+        tk.Label(self.page, text='姓名: ', font=20,width=15, pady=15).grid(row=7, column=1)
+        tk.Label(self.page, text=f'{student.Name}',font=20, width=10, pady=15).grid(row=7, column=2)
+        tk.Label(self.page, text='性别: ',font=20, width=15, pady=15).grid(row=8, column=1)
+        tk.Label(self.page, text=f'{student.Sex}',font=20, width=10, pady=15).grid(row=8, column=2)
+        tk.Label(self.page, text='班级: ',font=20, width=15, pady=15).grid(row=9, column=1)
+        tk.Label(self.page, text=f'{student.ClassName}', font=20,width=10, pady=15).grid(row=9, column=2)
+        tk.Label(self.page, text='数学: ',font=20, width=15, pady=15).grid(row=10, column=1)
+        tk.Label(self.page, text=f'{student.Math}',font=20, width=10, pady=15).grid(row=10, column=2)
+        tk.Label(self.page, text='语文: ',font=20, width=15, pady=15).grid(row=11, column=1)
+        tk.Label(self.page, text=f'{student.Chinese}', font=20,width=10, pady=15).grid(row=11, column=2)
+        tk.Label(self.page, text='英语: ',font=20, width=15, pady=15).grid(row=12, column=1)
+        tk.Label(self.page, text=f'{student.English}',font=20, width=10, pady=15).grid(row=12, column=2)
 
+    def cancel(self):
+        pass
 
-def cancel():
-    pass
-
-def select():
-    root = tk.Tk()
-    page = tk.Frame(root)
-
-    selectone(root, page)
+if __name__ == '__main__':
+    Login().mainloop()
