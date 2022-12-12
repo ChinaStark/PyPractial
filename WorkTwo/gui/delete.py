@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter.messagebox import *
 from WorkTwo.data import *
-from menu import show_menu
+
 
 
 def check(id):
@@ -28,7 +28,7 @@ def setup_UI(root,page):
     statusLabel = tk.Label(page,text='',fg='red',textvariable=status,width=36)
     statusLabel.pack(side=tk.TOP)
     tk.Button(page,text="删除",font=8,width=10,command=lambda :fetch(ids)).pack(side=tk.TOP,ipadx=2)
-    tk.Button(page,text="返回",font=8,width=10,command=cancel(root)).pack(side=tk.TOP,ipadx=2)
+    tk.Button(page,text="返回",font=8,width=10,command=cancel).pack(side=tk.TOP,ipadx=2)
     page.mainloop()
 
 def fetch(ids):
@@ -49,11 +49,12 @@ def login(id):
         status.set("请输入id号")
 
 
-def cancel(root):
-    root.destroy()
-    show_menu()
+def cancel():
+    pass
 
 def dels():
+
     root = tk.Tk()
     page = tk.Frame(root)
+
     delete(root,page)

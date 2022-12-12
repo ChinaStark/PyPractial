@@ -1,9 +1,10 @@
 import tkinter as tk
 from tkinter import messagebox
-import update
+from update import *
+import selectone
 from WorkTwo.gui.selectAll import *
-from selectone import select
-from delete import dels
+from delete import *
+
 
 
 def show_menu():
@@ -17,47 +18,30 @@ def show_menu():
            background="white",
            activebackground="wheat").pack(
         padx=80, pady=3)
-    Button(page, text="更新学生信息", command=lambda: upf(root), width=25, font=28, foreground="black",
+    Button(page, text="更新学生信息", command=lambda: up(), width=25, font=28, foreground="black",
            background="white",
            activebackground="wheat").pack(
         padx=80, pady=3)
-    Button(page, text="删除学生信息", command=lambda: delsf(root), width=25, font=28,
+    Button(page, text="删除学生信息", command=lambda: dels(), width=25, font=28,
            foreground="black",
            background="white",
            activebackground="wheat").pack(
         padx=80, pady=3)
-    Button(page, text="查询一位学生信息", command=lambda: selectf(root), width=25,
+    Button(page, text="查询一位学生信息", command=lambda: selectone.select(), width=25,
            font=28,
            foreground="black", background="white",
            activebackground="wheat").pack(
         padx=80, pady=3)
-    Button(page, text="查询所有学生信息", command=lambda: selectAllf(), width=25,
+    Button(page, text="查询所有学生信息", command=lambda:selectAll(), width=25,
            font=28, foreground="black",
            background="white",
            activebackground="wheat").pack(
         padx=80, pady=3)
     root.mainloop()
 
-
 def upf(root):
     root.destroy()
-    update.UP()
-
-
-def delsf(root):
-    root.destroy()
-    dels()
-
-
-def selectf(root):
-    root.destroy()
-    select()
-
-
-def selectAllf(root):
-    root.destroy()
-    selectAll()
-
+    up()
 
 def Stu_Add(root, page):
     Stu_ID = tk.StringVar()
@@ -93,7 +77,7 @@ def Stu_Add(root, page):
               command=lambda: addStuInfo(Stu_ID, Stu_Name, Stu_Sex, Stu_Classname, Stu_Math, Stu_Chinese, Stu_English),
               width=10, height=2, font=("", 12, ""),
               activebackground="skyblue").grid(row=8, column=1, pady=10)
-    tk.Button(page, text="返回", command=lambda: cancel(root), width=10, height=2, font=("", 12, "")).grid(
+    tk.Button(page, text="返回", command=lambda: show_menu(root, page), width=10, height=2, font=("", 12, "")).grid(
         row=8, column=2, padx=5)
 
 
@@ -105,11 +89,5 @@ def addStuInfo(Stu_ID, Stu_Name, Stu_Sex, Stu_Classname, Stu_Math, Stu_Chinese, 
 
     else:
         messagebox.showerror("错误", "添加失败！学生的学号不能重复")
-
-
-def cancel(root):
-    root.destroy()
-    show_menu()
-
 
 show_menu()
