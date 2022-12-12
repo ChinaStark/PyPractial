@@ -6,6 +6,7 @@ from WorkTwo.data.dao import *
 
 
 def loginPage(root, page):
+
     username = StringVar()
     password = StringVar()
 
@@ -34,10 +35,3 @@ def Check(username, password, root, page):
         show_menu()
     else:
         messagebox.showerror("错误提示", "请检查用户名或密码是否正确")
-
-
-root = Tk()
-page = Frame(root)
-loginPage(root, page)
-
-root.mainloop()
