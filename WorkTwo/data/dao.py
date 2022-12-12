@@ -37,7 +37,7 @@ def selectAll() -> list:
     data_tuple = cursor.fetchall()
     studentList = list()
     for data in data_tuple:
-        student = Stu(stuid=data[0], name=data[1], sex=data[2], classname=data[3], math=data[4], chinese=data[5],
+        student = Stu(stuid=data[0], name=data[2], sex=data[1], classname=data[3], math=data[4], chinese=data[5],
                       english=data[6])
         studentList.append(student)
 
@@ -54,7 +54,7 @@ def selectOne(id) -> list[Stu]:
     data_tuple = cursor.fetchall()
     studentList = list()
     for data in data_tuple:
-        student = Stu(stuid=data[0], name=data[1], sex=data[2], classname=data[3], math=data[4], chinese=data[5],
+        student = Stu(stuid=data[0], name=data[2], sex=data[1], classname=data[3], math=data[4], chinese=data[5],
                       english=data[6])
         studentList.append(student)
 
@@ -81,9 +81,10 @@ def insert(student: Stu):
     conn = getConnection()
     conn.select_db("python")
     cursor = conn.cursor()
-    sql = f"insert into student values('{student.StuId}','{student.Name}'," \
-          f"'{student.Sex}','{student.ClassName}','{student.Math}','{student.Chinese}'," \
+    sql = f"insert into student values('{student.StuId}','{student.Sex}'," \
+          f"'{student.Name}','{student.ClassName}','{student.Math}','{student.Chinese}'," \
           f"'{student.English}')"
+    print(sql)
     count = cursor.execute(sql)
     return True if count > 0 else False
 

@@ -30,8 +30,8 @@ def Check(username, password, root, page):
     # print(user.Username, user.Password)
     if login(user) == True:
         messagebox.showinfo("登录提示", "登录成功")
-        root.destroy()
+
         page.destroy()
-        show_menu()
+        show_menu(root, page)
     else:
         messagebox.showerror("错误提示", "请检查用户名或密码是否正确")
