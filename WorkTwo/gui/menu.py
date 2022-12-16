@@ -86,7 +86,7 @@ def Stu_Add(root, page):
     root.geometry("500x400+300+100")
     root.title("添加学生信息")
     tk.Label(page).grid(row=0, column=0)
-    tk.Label(page, text="学生学号：", padx=80, font=20).grid(row=1, column=1)
+    tk.Label(page, text="学生学号：", padx=10, font=20).grid(row=1, column=1)
     tk.Entry(page, textvariable=Stu_ID, font=("", 16, "")).grid(row=1, column=2)
     tk.Label(page, text="学生姓名：", font=20).grid(row=2, column=1, pady=10)
     tk.Entry(page, textvariable=Stu_Name, font=("", 16, "")).grid(row=2, column=2)
