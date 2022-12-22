@@ -11,6 +11,7 @@ from WorkTwo.data.dao import *
 from WorkTwo.gui import *
 from matplotlib import pyplot as plt
 
+
 def show_menu(root, page, ):
     page.destroy()
     page = Frame(root)
@@ -177,7 +178,7 @@ def Query(StuID, Stustatus, stringval, root, page, ):
 
 def setup_DelUI2(student: Stu, root, page, stringval: list):
     page.destroy()
-    root.geometry("500x700+500+100")
+    root.geometry("500x500+500+100")
     stu = Stu()
     page = Frame(root)
     page.pack()
@@ -221,7 +222,7 @@ def setup_DelUI2(student: Stu, root, page, stringval: list):
 
     tk.Button(page, text="修改", font=20, width=6, command=lambda: updates(stringval)).grid(row=9, column=1, pady=10)
     tk.Button(page, text="返回", font=20, width=6, command=lambda: show_menu(root, page)).grid(row=9, column=22,
-                                                                                               pady=10)
+                                                                                             pady=10)
 
 
 def updates(stringval: list):
@@ -264,12 +265,12 @@ def setup_DelUI(root, page, DelID, DelStatus, DelEnterID, DelstatusLabel):
     DelstatusLabel = tk.Label(page, text='', fg='red', textvariable=DelStatus, width=36)
     DelstatusLabel.pack(side=tk.TOP)
     tk.Button(page, text="删除", font=8, width=10, command=lambda: fetchDel(DelID, DelStatus)).pack(side=tk.TOP,
-                                                                                                    ipadx=2)
+                                                                                                  ipadx=2)
     tk.Button(page, text="返回", font=8, width=10, command=lambda: show_menu(root, page)).pack(side=tk.TOP, ipadx=2)
 
 
 def fetchDel(DelID, DelStatus):
-    ans = messagebox.askokcancel('Verify delete', "确定删除?")
+    ans = messagebox.askokcancel('Verify delete', f"确定删除该的学生吗?")
     if ans:
         Delok(DelID, DelStatus)
 
@@ -320,8 +321,8 @@ def setup_SelOneUI(root, page, seloneID, selone_enterID, selone_status, selone_s
         pady=10,
         sticky=tk.N)
     tk.Button(page, text="返回", font=20, width=6, command=lambda: show_menu(root, page)).grid(row=4, column=2,
-                                                                                               pady=10,
-                                                                                               sticky=tk.N)
+                                                                                             pady=10,
+                                                                                             sticky=tk.N)
 
 
 def Selone_ok(root, page, seloneID, selone_status):
@@ -349,7 +350,7 @@ def Selone_setup_UI3(root):
 def Selone_setup_UI2(student: Stu, root, page):
     root.geometry("500x600+500+100")
     tk.Label(page, text='显示学生信息 ', font=30, width=10, pady=15, padx=15).grid(row=5, column=1,
-                                                                                   columnspan=5)
+                                                                             columnspan=5)
     tk.Label(page, text='学号： ', font=20, width=15, pady=15).grid(row=6, column=1)
     tk.Label(page, text=f'{student.StuId}', font=20, width=10, pady=15).grid(row=6, column=2)
     tk.Label(page, text='姓名: ', font=20, width=15, pady=15).grid(row=7, column=1)
@@ -364,6 +365,7 @@ def Selone_setup_UI2(student: Stu, root, page):
     tk.Label(page, text=f'{student.Chinese}', font=20, width=10, pady=15).grid(row=11, column=2)
     tk.Label(page, text='英语: ', font=20, width=15, pady=15).grid(row=12, column=1)
     tk.Label(page, text=f'{student.English}', font=20, width=10, pady=15).grid(row=12, column=2)
+
 
 # 查询一位学生信息
 
@@ -433,8 +435,6 @@ def Stu_Table():
             startangle=90,  # 逆时针起始角度设置
             pctdistance=1.1
             )  # 数值距圆心半径倍数距离
-    plt.subplot(1, 3, 1)
-    plt.title("英语成绩统计")
 
     ax2.pie(Sizechinese, explode=explode,
             labels=labels,
@@ -444,8 +444,6 @@ def Stu_Table():
             shadow=False,  # 无阴影设置
             startangle=90,  # 逆时针起始角度设置
             pctdistance=1.1)  # 数值距圆心半径倍数距离
-    plt.subplot(1, 3, 2)
-    plt.title("语文成绩统计")
 
     ax3.pie(SizeMath, explode=explode,
             labels=labels,
@@ -455,6 +453,10 @@ def Stu_Table():
             shadow=False,  # 无阴影设置
             startangle=90,  # 逆时针起始角度设置
             pctdistance=1.1)  # 数值距圆心半径倍数距离
+    plt.subplot(1, 3, 1)
+    plt.title("英语成绩统计")
+    plt.subplot(1, 3, 2)
+    plt.title("语文成绩统计")
     plt.subplot(1, 3, 3)
     plt.title("数学成绩统计")
 
@@ -492,10 +494,11 @@ def selectAll(root, page):
     treeview.heading("语文", text="语文")
     treeview.heading("数学", text="数学")
     treeview.heading("英语", text="英语")
-    treeview.grid(row=0, column=0,columnspan = 2)
+    treeview.grid(row=0, column=0, columnspan=2)
     stulist = WorkTwo.data.dao.selectAll()
-    Button(page,text='成绩概览', height=2, width=13, bg="gray", command=Stu_Table).grid(row=1, column=0, padx=10, pady=10)
-    Button(page,text='返回', height=2, width=13, bg="gray", command=lambda: show_menu(root, page)).grid(row=1, column=1, padx=10, pady=10)
+    Button(page, text='成绩概览', height=2, width=13, bg="gray", command=Stu_Table).grid(row=1, column=0, padx=10, pady=10)
+    Button(page, text='返回', height=2, width=13, bg="gray", command=lambda: show_menu(root, page)).grid(row=1, column=1,
+                                                                                                       padx=10, pady=10)
     m, c, e = 0, 0, 0
     Index = 0
     for index, Stu in enumerate(stulist):  # 写入数据
